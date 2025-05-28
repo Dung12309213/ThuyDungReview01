@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">ThuyDungReview01</string>
+    <string name="title_Username">Username</string>
+    <string name="title_Password">Password</string>
+    <string name="title_SaveLoginInfo">Save Login Info</string>
+    <string name="title_Login">Login</string>
+</resources>
