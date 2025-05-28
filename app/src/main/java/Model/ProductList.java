@@ -1,84 +1,42 @@
-package com.duung.thuydungreview01;
+package Model;
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.widget.ListView;
-import android.widget.Toast;
-
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-
+import java.util.ArrayList;
 import java.util.List;
 
-import Adapter.ProductAdapter;
-import Model.Product;
-import Model.ProductListActivity;
+public class ProductList {
+    private static ProductList instance;
+    private List<Product> productList;
 
-public class ProductListActivity extends AppCompatActivity {
-
-    private static final int REQUEST_CODE_ADD_PRODUCT = 100;
-
-    ListView lvProducts;
-    Toolbar toolbar;
-
-    List<Product> productList;
-    ProductAdapter productAdapter;
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_product_list);
-
-        // Setup Toolbar
-        toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-        // Setup ListView
-        lvProducts = findViewById(R.id.lvProducts);
-
-        // ✅ Lấy danh sách sản phẩm từ ProductList singleton
-        productList = ProductList.getInstance().getProductList();
-
-        // ✅ Custom Adapter hiển thị
-        productAdapter = new ProductAdapter(this, productList);
-        lvProducts.setAdapter(productAdapter);
+    private ProductList() {
+        productList = new ArrayList<>();
+        productList.add(new Product(1, "P001", "Apple iPhone 13", 799.99, "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/macbook-air-midnight-select-20220606?wid=904&hei=840&fmt=jpeg&qlt=80&.v=1654122893576"));
+        productList.add(new Product(2, "P002", "Samsung Galaxy S21", 699.99, "https://m.media-amazon.com/images/I/71o8Q5XJS5L._AC_SL1500_.jpg"));
+        productList.add(new Product(3, "P003", "Google Pixel 6", 599.99, "https://m.media-amazon.com/images/I/61u48FEs2TL._AC_SL1500_.jpg"));
+        productList.add(new Product(4, "P004", "OnePlus 9", 729.99, "https://example.com/images/oneplus9.jpg"));
+        productList.add(new Product(5, "P005", "Sony WH-1000XM4 Headphones", 349.99, "https://example.com/images/sonyheadphones.jpg"));
+        productList.add(new Product(6, "P006", "Dell XPS 13 Laptop", 999.99, "https://example.com/images/dellxps13.jpg"));
+        productList.add(new Product(7, "P007", "Apple MacBook Air", 1099.99, "https://example.com/images/macbookair.jpg"));
+        productList.add(new Product(8, "P008", "Samsung QLED TV", 1199.99, "https://example.com/images/samsungqled.jpg"));
+        productList.add(new Product(9, "P009", "Amazon Echo Dot", 49.99, "https://example.com/images/echodot.jpg"));
+        productList.add(new Product(10, "P010", "Nintendo Switch", 299.99, "https://example.com/images/switch.jpg"));
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(android.view.Menu menu) {
-        getMenuInflater().inflate(R.menu.top_toolbar_menu, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(android.view.MenuItem item) {
-        int id = item.getItemId();
-
-        if (id == R.id.action_add_product) {
-            Intent intent = new Intent(this, Product_Item.class);
-            startActivityForResult(intent, REQUEST_CODE_ADD_PRODUCT);
-            return true;
-        } else if (id == R.id.action_profile) {
-            startActivity(new Intent(this, AboutActivity.class));
-            return true;
+    public static ProductList getInstance() {
+        if (instance == null) {
+            instance = new ProductList();
         }
-
-        return super.onOptionsItemSelected(item);
+        return instance;
     }
 
-    // ✅ Nhận kết quả khi thêm sản phẩm
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
+    public List<Product> getProductList() {
+        return productList;
+    }
 
-        if (requestCode == REQUEST_CODE_ADD_PRODUCT && resultCode == RESULT_OK && data != null) {
-            Product newProduct = (Product) data.getSerializableExtra("new_product");
-            if (newProduct != null) {
-                ProductList.getInstance().addProduct(newProduct); // Thêm vào Singleton
-                productAdapter.notifyDataSetChanged();             // Cập nhật giao diện
-                Toast.makeText(this, "Added: " + newProduct.getProductName(), Toast.LENGTH_SHORT).show();
-            }
-        }
+    public void addProduct(Product product) {
+        productList.add(product);
+    }
+
+    public void removeProduct(Product product) {
+        productList.remove(product);
     }
 }

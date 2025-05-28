@@ -35,7 +35,7 @@ public class Product_Item extends AppCompatActivity {
         etProductCode = findViewById(R.id.etProductCode);
         etProductName = findViewById(R.id.etProductName);
         etUnitPrice = findViewById(R.id.etUnitPrice);
-        btnSave = findViewById(R.id.btnSave);
+
 
         btnSave.setOnClickListener(v -> {
             String idStr = etId.getText().toString().trim();

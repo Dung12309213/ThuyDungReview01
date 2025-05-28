@@ -42,7 +42,7 @@ public class ProductAdapter extends BaseAdapter {
     @Override
     public View getView(int i, View view, ViewGroup parent) {
         if (view == null)
-            view = LayoutInflater.from(context).inflate(R.layout.activity_product_item, parent, false); //
+            view = LayoutInflater.from(context).inflate(R.layout.activity_product_item, parent, false);
 
         Product p = productList.get(i);
 
@@ -59,11 +59,11 @@ public class ProductAdapter extends BaseAdapter {
         if (imgLink != null && !imgLink.isEmpty()) {
             Picasso.get()
                     .load(imgLink)
-                    .placeholder(R.drawable.ic_placeholder) // ảnh tạm thời nếu đang tải
-                    .error(R.drawable.ic_error)             // ảnh lỗi nếu fail
+                    .placeholder(R.drawable.ic_placeholder)
+                    .error(R.drawable.ic_error)
                     .into(imgProduct);
         } else {
-            imgProduct.setImageResource(R.drawable.ic_default_image); // ảnh mặc định nếu không có link
+            imgProduct.setImageResource(R.drawable.ic_default_image);
         }
 
         return view;
